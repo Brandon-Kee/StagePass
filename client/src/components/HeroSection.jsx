@@ -17,13 +17,13 @@ const HeroSection = () => {
             <div className='flex items-center gap-4 text-gray-300'>
                 <span>Musical</span>
                 <div className='flex items-center gap-1'>
-                    <Calendar1Icon className='w-4.5 h-4.5'/>2003
+                    <Calendar1Icon className='w-4.5 h-4.5'/>Now Playing
                 </div>
                 <div className='flex items-center gap-1'>
                     <ClockIcon className='w-4.5 h-4.5'/>2h 45m
                 </div>
             </div>
-            <p className='max-w-md text-gray-300'>Meet the witches of Oz before Dorothy dropped in.</p>
+            <p className='max-w-md text-gray-300'></p>
             <button onClick={()=>navigate('/movies')}className='flex items-enter gap-1 px-6 py-3 text-sm bg-primary
             hover:bg-primary-dull transition rounded-full font-medium cursor-pointer'>
                 Explore Shows
