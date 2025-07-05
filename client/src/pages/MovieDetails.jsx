@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { dummyDateTimeData, dummyShowsData } from '../assets/assets'
 import BlurCircle from '../components/BlurCircle'
 import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react'
 import timeFormat from '../lib/timeFormat'
 import DateSelect from '../components/DateSelect'
+import ShowCard from '../components/ShowCard'
+import Loading from '../components/Loading'
+
 
 const MovieDetails = () => {
+
+    const navigate = useNavigate()
     const { id } = useParams()
     const [show, setShow] = useState(null)
 
     const getShow = async () => {
-        const foundShow = dummyShowsData.find(show => show._id === id)
-        if (foundShow) {
+        const show = dummyShowsData.find(show => show._id === id)
+        if (show) {
             setShow({
-                movie: foundShow,
+                movie: show,
                 dateTime: dummyDateTimeData
             })
         }
@@ -74,10 +79,31 @@ const MovieDetails = () => {
             </div>
             <DateSelect dateTime={show.dateTime} id={id} />
 
+            <p className='text-lg font-medium mt-20 mb-8'>You May Also Like</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {Array.isArray(dummyShowsData) &&
+                    dummyShowsData.slice(0, 4).map((movie, index) => (
+                        <ShowCard key={index} movie={movie} />
+                    ))
+                }
+            </div>
+
+            <div className='flex justify-center mt-20'>
+                <button
+                    onClick={() => {navigate('/movies'); scrollTo(0,0)}}
+                    className='px-10 py-3 text-sm bg-primary hover:bg-primary-dull
+      transition rounded-md font-medium cursor-pointer'
+                >
+                    Show More
+                </button>
+            </div>
+
+
         </div>
-        
+
     ) : (
-        <div className="text-white p-10">Loading...</div>
+        <Loading />
     )
 }
 
